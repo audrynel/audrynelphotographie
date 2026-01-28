@@ -24,9 +24,20 @@
         :root { --gold: #c5a044; --dark: #0a0a0a; --white: #ffffff; --soft-dark: #111; }
         body { margin:0; background-color: var(--dark); color: var(--white); font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
 
-        /* NAVIGATION */
+        /* NAVIGATION & LOGO ANIMATION */
         nav { display: flex; justify-content: space-between; align-items: center; padding: 10px 5%; background: rgba(0,0,0,0.95); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #222; }
-        .logo { font-family: 'Playfair Display', serif; font-size:1.3rem; color: var(--gold); text-transform: uppercase; letter-spacing:2px; cursor:pointer; }
+        
+        .logo-wrapper { height: 25px; overflow: hidden; cursor: pointer; }
+        .logo { 
+            font-family: 'Playfair Display', serif; 
+            font-size:1.3rem; 
+            color: var(--gold); 
+            text-transform: uppercase; 
+            letter-spacing:2px; 
+            transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 1;
+        }
+
         .nav-right { display:flex; align-items:center; gap:15px; }
 
         .login-nav-btn { background: var(--white); color:black; padding:8px 12px; border-radius:4px; text-decoration:none; font-weight:bold; font-size:0.7rem; text-transform:uppercase; transition:0.3s; cursor:pointer; border:none; white-space: nowrap; }
@@ -45,9 +56,28 @@
         .grid-img:hover { opacity: 0.8; }
         .dl-btn { display: block; background: var(--gold); color: black; text-decoration: none; font-size: 0.55rem; padding: 4px 0; margin-top: 3px; border-radius: 2px; font-weight: bold; text-align: center; }
 
-        /* THANK YOU & APK */
+        /* THANK YOU & APK BOX */
         .thank-you-box { text-align: center; padding: 40px 10%; margin-top: 20px; border-top: 1px solid #222; }
         .thank-you-box h4 { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1.5rem; margin-bottom: 10px; }
+        
+        /* ANIMATION FOR BUTTONS (COLOR CHANGING + PULSE) */
+        @keyframes pulse-animation {
+            0% { transform: scale(1); background-color: #25d366; }
+            25% { background-color: #c5a044; }
+            50% { transform: scale(1.05); background-color: #128c7e; }
+            75% { background-color: #b08d3a; }
+            100% { transform: scale(1); background-color: #25d366; }
+        }
+
+        @keyframes status-glow {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* APK BUTTON ANIMATION - APPLIED TO BOTH HOME AND CLIENT PAGE */
+        .btn-apk-mid, .client-apk-btn { animation: pulse-animation 3s infinite !important; }
+
         .client-apk-btn { display: inline-flex; align-items: center; gap: 10px; background: #25d366; color: white; padding: 12px 25px; border-radius: 4px; text-decoration: none; font-weight: bold; font-size: 0.9rem; margin-top: 20px; transition: 0.3s; }
 
         /* SLIDESHOW */
@@ -59,13 +89,40 @@
         /* HERO */
         .hero { height:50vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background:linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('audry-nel-photography-logo.jpg'); background-size:cover; background-position:center; text-align:center; }
         
-        .login-container { max-width:400px; margin:40px auto 80px; padding:40px; border:1px solid var(--gold); text-align:center; background: var(--soft-dark); border-radius:8px; }
+        .login-container { max-width:400px; margin:40px auto 40px; padding:40px; border:1px solid var(--gold); text-align:center; background: var(--soft-dark); border-radius:8px; }
         input { width:100%; padding:12px; margin:10px 0; background:#1a1a1a; border:1px solid #333; color:white; border-radius:4px; box-sizing: border-box; }
         .btn-gold { width:100%; padding:15px; background:var(--gold); border:none; font-weight:bold; cursor:pointer; border-radius:4px; color: black; text-decoration: none; display: inline-block; transition: 0.3s; }
         .btn-gold:hover { background: #b08d3a; }
 
-        .apk-container { text-align: center; margin: 30px auto; }
-        .btn-apk-mid { display: inline-flex; align-items: center; gap: 10px; background: #25d366; color: white; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
+        /* WHATSAPP BUTTON WITH COLOR ANIMATION */
+        .whatsapp-booking { text-align: center; margin: 20px auto 10px; }
+        .btn-whatsapp-book { display: inline-flex; align-items: center; gap: 10px; color: white; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1rem; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.3); animation: pulse-animation 4s infinite; }
+
+        /* AVAILABILITY STATUS BOX */
+        .status-box { 
+            display: inline-flex; align-items: center; gap: 10px; 
+            background: rgba(255,255,255,0.05); padding: 10px 20px; 
+            border-radius: 30px; border: 1px solid rgba(197, 160, 68, 0.3);
+            cursor: pointer; transition: 0.3s; text-decoration: none;
+            margin-bottom: 20px;
+        }
+        .status-box:hover { background: rgba(197, 160, 68, 0.1); border-color: var(--gold); }
+        .status-dot { width: 10px; height: 10px; background: #25d366; border-radius: 50%; animation: status-glow 1.5s infinite; box-shadow: 0 0 8px #25d366; }
+        .status-label { font-size: 0.75rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: #fff; }
+
+        /* FULLSCREEN CALENDAR OVERLAY FIX */
+        #calendar-overlay { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: var(--dark); z-index: 5000; overflow-y: auto;
+        }
+        .cal-header { padding: 20px; text-align: center; border-bottom: 1px solid #222; position: relative; }
+        .close-cal { position: absolute; right: 20px; top: 25px; color: var(--gold); font-size: 1.5rem; cursor: pointer; }
+        .cal-frame-container { width: 100%; height: 80vh; overflow: hidden; border: none; background: white; }
+        #googleCal { width: 100%; height: 100%; border: none; }
+
+        /* APK BUTTON AT THE VERY BOTTOM */
+        .apk-bottom-container { text-align: center; margin: 40px auto 60px; }
+        .btn-apk-mid { display: inline-flex; align-items: center; gap: 10px; background: #333; color: white; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 0.8rem; border: 1px solid #444; }
 
         #lightbox { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:3000; justify-content:center; align-items:center; }
         #lightbox img { max-width:90%; max-height:85%; border:2px solid var(--gold); }
@@ -77,7 +134,9 @@
 <body>
 
 <nav>
-    <div class="logo" onclick="location.reload()">Audry Nel</div>
+    <div class="logo-wrapper" onclick="location.reload()">
+        <div class="logo" id="mainLogo">Audry Nel</div>
+    </div>
     <div class="nav-right">
         <select id="langSwitcher" onchange="switchLanguage()">
             <option value="en" selected>English</option>
@@ -85,9 +144,7 @@
             <option value="rn">Kirundi</option>
             <option value="sw">Kiswahili</option>
         </select>
-
         <a href="#login-section" class="login-nav-btn" id="navLoginBtn">CLIENT ACCESS</a>
-
         <div class="nav-socials">
             <a href="https://wa.me/25762652177" target="_blank"><i class="fab fa-whatsapp"></i></a>
             <a href="https://www.facebook.com/Audrynel257" target="_blank"><i class="fab fa-facebook-f"></i></a>
@@ -109,15 +166,29 @@
         <img class="slides public-s" src="ifoto2.jpg" alt="Portfolio 2" onclick="openLightbox(this)">
         <img class="slides public-s" src="ifoto3.jpg" alt="Portfolio 3" onclick="openLightbox(this)">
         <img class="slides public-s" src="ifoto14.jpg" alt="Portfolio 4" onclick="openLightbox(this)">
+        <img class="slides public-s" src="ifoto5.jpg" alt="Portfolio 5" onclick="openLightbox(this)">
+        <img class="slides public-s" src="ifoto6.jpg" alt="Portfolio 6" onclick="openLightbox(this)">
+        <img class="slides public-s" src="ifoto7.jpg" alt="Portfolio 7" onclick="openLightbox(this)">
+        <img class="slides public-s" src="ifoto8.jpg" alt="Portfolio 8" onclick="openLightbox(this)">
+        <img class="slides public-s" src="ifoto9.jpg" alt="Portfolio 9" onclick="openLightbox(this)">
+        <img class="slides public-s" src="ifoto10.jpg" alt="Portfolio 10" onclick="openLightbox(this)">
         <a class="prev" onclick="plusPublicSlides(-1)">&#10094;</a>
         <a class="next" onclick="plusPublicSlides(1)">&#10095;</a>
     </div>
 
-    <div class="apk-container">
-        <a href="https://github.com/audrynel/audrynelphotographie/releases/download/V1/AudryNel.apk" download class="btn-apk-mid">
-            <i class="fab fa-android"></i> <span id="apkBtnHome">DOWNLOAD OUR MOBILE APP (APK)</span>
+    <div class="whatsapp-booking">
+        <a href="https://wa.me/25762652177?text=Hello%20Audry%20Nel%20Photography,%20ndashaka%20kubukinga%20session%20y'amafoto." target="_blank" class="btn-whatsapp-book">
+            <i class="fab fa-whatsapp"></i> <span id="waBookBtn">BOOK A SESSION ON WHATSAPP</span>
         </a>
     </div>
+
+    <center>
+        <div class="status-box" onclick="toggleCalendar()">
+            <div class="status-dot" id="dotIndicator"></div>
+            <div id="statusLabel" class="status-label">Available - Click to see dates</div>
+            <i class="fas fa-calendar-alt" style="color:var(--gold); font-size: 0.8rem;"></i>
+        </div>
+    </center>
 
     <div id="login-section" class="login-container">
         <h3 id="loginTitle">CLIENT ACCESS</h3>
@@ -130,6 +201,29 @@
             <a href="https://www.instagram.com/audry_nel" target="_blank" style="color:#d6249f; margin:0 10px; font-size: 1.5rem;"><i class="fab fa-instagram"></i></a>
         </div>
     </div>
+
+    <div class="apk-bottom-container">
+        <a href="https://github.com/audrynel/audrynelphotographie/releases/download/V1/AudryNel.apk" download class="btn-apk-mid">
+            <i class="fab fa-android"></i> <span id="apkBtnHome">DOWNLOAD OUR MOBILE APP (APK)</span>
+        </a>
+    </div>
+</div>
+
+<div id="calendar-overlay">
+    <div class="cal-header">
+        <div class="logo" style="font-size: 1.5rem; color:var(--gold); font-family: 'Playfair Display'; text-transform: uppercase;">Audry Nel</div>
+        <p style="color:#888; margin: 5px 0 0 0; font-size: 0.7rem; letter-spacing: 2px;">CALENDAR / BOOKING</p>
+        <i class="fas fa-times close-cal" onclick="toggleCalendar()"></i>
+    </div>
+    <div class="cal-frame-container">
+        <iframe id="googleCal" src=""></iframe>
+    </div>
+    <center style="padding: 20px;">
+        <a href="https://wa.me/25762652177" class="btn-whatsapp-book">
+            <i class="fab fa-whatsapp"></i> CONFIRM MY DATE
+        </a>
+        <p style="margin-top:20px; color:#555; cursor:pointer;" onclick="toggleCalendar()">← Go Back</p>
+    </center>
 </div>
 
 <div id="client-page" class="page-section">
@@ -137,7 +231,7 @@
 </div>
 
 <div id="lightbox" onclick="this.style.display='none'">
-    <img id="lightbox-img" src="" alt="Enlarged view">
+    <img id="lightbox-img" src="" alt="View">
 </div>
 
 <footer>
@@ -146,80 +240,78 @@
 </footer>
 
 <script>
+// --- HINDURA AHA GUSA ---
+const isAvailable = true; // Shyiraho 'true' niba uhari, 'false' niba udahari
+// ------------------------
+
 const APK_URL = "https://github.com/audrynel/audrynelphotographie/releases/download/V1/AudryNel.apk";
+const CALENDAR_URL = "https://calendar.google.com/calendar/htmlembed?src=audrymukamurakoze@gmail.com&ctz=Africa/Bujumbura";
 
 const translations = {
-    en: {
-        heroSub: "STORYTELLING THROUGH A LENS",
-        yourPhotos: "Your Photos",
-        apkBtn: "DOWNLOAD OUR MOBILE APP (APK)",
-        loginTitle: "CLIENT ACCESS",
-        loginBtn: "LOGIN",
-        navLogin: "CLIENT ACCESS",
-        welcome: "Welcome",
-        dlAll: "📥 DOWNLOAD ALL (ZIP)",
-        thankYou: "Thank you for choosing us!",
-        thankYouSub: "We appreciate your trust. May these photos keep your memories alive.",
-        logout: "LOGOUT",
-        error: "Error: Incorrect Login!"
-    },
-    fr: {
-        heroSub: "L'HISTOIRE À TRAVERS L'OBJECTIF",
-        yourPhotos: "Vos Photos",
-        apkBtn: "TÉLÉCHARGER L'APP (APK)",
-        loginTitle: "ACCÈS CLIENT",
-        loginBtn: "CONNEXION",
-        navLogin: "ACCÈS CLIENT",
-        welcome: "Bienvenue",
-        dlAll: "📥 TÉLÉCHARGER TOUT (ZIP)",
-        thankYou: "Merci de nous avoir choisi!",
-        thankYouSub: "Nous apprécions votre confiance. Que ces photos immortalisent vos souvenirs.",
-        logout: "DÉCONNEXION",
-        error: "Erreur: Identifiants incorrects!"
-    },
-    rn: {
-        heroSub: "INKURU ICIYE MU LENS",
-        yourPhotos: "Amafoto Yawe",
-        apkBtn: "TELECHARGA APPLICATION (APK)",
-        loginTitle: "KWINJIRA",
-        loginBtn: "KWINJIRA",
-        navLogin: "KWINJIRA",
-        welcome: "Kaze",
-        dlAll: "📥 TELECHARGER ZOSE (ZIP)",
-        thankYou: "Murakoze kuduhitamo!",
-        thankYouSub: "Murakoze kutwizera. Amafoto yawe akugumye ku mutima.",
-        logout: "SOHOKA",
-        error: "Error: Code ntitahura!"
-    },
-    sw: {
-        heroSub: "SIMULIZI KUPITIA LENZI",
-        yourPhotos: "Picha Zako",
-        apkBtn: "PAKUA APP YETU (APK)",
-        loginTitle: "INGIA HAPA",
-        loginBtn: "INGIA",
-        navLogin: "INGIA HAPA",
-        welcome: "Karibu",
-        dlAll: "📥 PAKUA ZOTE (ZIP)",
-        thankYou: "Asante kwa kutuchagua!",
-        thankYouSub: "Tunashukuru kwa imani yako. Picha hizi zihifadhi kumbukumbu zako.",
-        logout: "ONDOKA",
-        error: "Hitilafu: Ingizo si sahihi!"
-    }
+    en: { avail: "Available - Click to see dates", notAvail: "Fully Booked - No dates", welcome: "Welcome", heroSub: "STORYTELLING THROUGH A LENS", yourPhotos: "Your Photos", waBook: "BOOK A SESSION ON WHATSAPP", apkBtn: "DOWNLOAD OUR MOBILE APP (APK)", loginTitle: "CLIENT ACCESS", loginBtn: "LOGIN", navLogin: "CLIENT ACCESS", dlAll: "📥 DOWNLOAD ALL ", thankYou: "Thank you for choosing us!", thankYouSub: "We appreciate your trust. May these photos keep your memories alive.", logout: "LOGOUT", error: "Error: Incorrect Login!" },
+    fr: { avail: "Disponible - Cliquez pour voir", notAvail: "Complet - Aucune date", welcome: "Bienvenue", heroSub: "L'HISTOIRE À TRAVERS L'OBJECTIF", yourPhotos: "Vos Photos", waBook: "RÉSERVER SUR WHATSAPP", apkBtn: "TÉLÉCHARGER L'APP (APK)", loginTitle: "ACCÈS CLIENT", loginBtn: "CONNEXION", navLogin: "ACCÈS CLIENT", dlAll: "📥 TÉLÉCHARGER TOUT ", thankYou: "Merci de nous avoir choisi!", thankYouSub: "Nous apprécions votre confiance. Que ces photos immortalisent vos souvenirs.", logout: "DÉCONNEXION", error: "Erreur: Identifiants incorrects!" },
+    rn: { avail: "Ndatanga amasession - Fyonda urabe", notAvail: "Nta masession ahari - Ndavuze", welcome: "Kaze", heroSub: "INKURU ICIYE MU LENS", yourPhotos: "Amafoto Yawe", waBook: "BUKA SESSION KURI WHATSAPP", apkBtn: "TELECHARGA APPLICATION (APK)", loginTitle: "KWINJIRA", loginBtn: "KWINJIRA", navLogin: "KWINJIRA", dlAll: "📥 TELECHARGER ZOSE (ZIP)", thankYou: "Murakoze kuduhitamo!", thankYouSub: "Murakoze kutwizera. Amafoto yawe akugumye ku mutima.", logout: "SOHOKA", error: "Error: Code ntitahura!" },
+    sw: { avail: "Napatikana - Bonyeza uone", notAvail: "Nimejaa - Hakuna nafasi", welcome: "Karibu", heroSub: "SIMULIZI KUPITIA LENZI", yourPhotos: "Picha Zako", waBook: "WEKA AHADI KWA WHATSAPP", apkBtn: "PAKUA APP YETU (APK)", loginTitle: "INGIA HAPA", loginBtn: "INGIA", navLogin: "INGIA HAPA", dlAll: "📥 PAKUA ZOTE ", thankYou: "Asante kwa kutuchagua!", thankYouSub: "Tunashukuru kwa imani yako. Picha hizi zihifadhi kumbukumbu zako.", logout: "ONDOKA", error: "Hitilafu: Ingizo si sahihi!" }
 };
+
+function updateStatusUI() {
+    const lang = document.getElementById('langSwitcher').value;
+    const t = translations[lang];
+    const statusLabel = document.getElementById('statusLabel');
+    const dot = document.getElementById('dotIndicator');
+    
+    if (isAvailable) {
+        statusLabel.innerText = t.avail;
+        statusLabel.style.color = "#fff";
+        dot.style.background = "#25d366";
+        dot.style.boxShadow = "0 0 8px #25d366";
+    } else {
+        statusLabel.innerText = t.notAvail;
+        statusLabel.style.color = "#ff4d4d";
+        dot.style.background = "#ff4d4d";
+        dot.style.boxShadow = "0 0 8px #ff4d4d";
+    }
+}
+
+function toggleCalendar() {
+    const overlay = document.getElementById('calendar-overlay');
+    const frame = document.getElementById('googleCal');
+    if (overlay.style.display === 'block') {
+        overlay.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    } else {
+        overlay.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        frame.src = CALENDAR_URL;
+    }
+}
+
+let isWelcome = false;
+function animateLogo() {
+    const logo = document.getElementById('mainLogo');
+    const lang = document.getElementById('langSwitcher').value;
+    logo.style.opacity = "0"; 
+    setTimeout(() => {
+        if (isWelcome) { logo.innerText = "Audry Nel"; } 
+        else { logo.innerText = translations[lang].welcome; }
+        logo.style.opacity = "1"; 
+        isWelcome = !isWelcome;
+    }, 800);
+}
+setInterval(animateLogo, 4000);
 
 function switchLanguage() {
     const lang = document.getElementById('langSwitcher').value;
     const t = translations[lang];
-    
     document.getElementById('heroSub').innerText = t.heroSub;
     document.getElementById('yourPhotosHeading').innerText = t.yourPhotos;
+    document.getElementById('waBookBtn').innerText = t.waBook;
     document.getElementById('apkBtnHome').innerText = t.apkBtn;
     document.getElementById('loginTitle').innerText = t.loginTitle;
     document.getElementById('loginBtn').innerText = t.loginBtn;
     document.getElementById('navLoginBtn').innerText = t.navLogin;
-    
-    const savedId = localStorage.getItem('audryClientSession');
-    if (savedId && clientsDatabase[savedId]) renderClientGallery(clientsDatabase[savedId]);
+    updateStatusUI();
+    if(isWelcome) document.getElementById('mainLogo').innerText = t.welcome;
 }
 
 const clientsDatabase = {
@@ -249,8 +341,7 @@ function checkLogin(){
         document.getElementById('client-page').classList.add('active');
         window.scrollTo(0,0);
     } else { 
-        const lang = document.getElementById('langSwitcher').value;
-        alert(translations[lang].error); 
+        alert(translations[document.getElementById('langSwitcher').value].error); 
     }
 }
 
@@ -294,4 +385,4 @@ function openLightbox(img){
 setInterval(() => { if(document.getElementById('main-page').classList.contains('active')) plusPublicSlides(1); }, 5000);
 </script>
 </body>
-    </html>
+</html>
